@@ -1,5 +1,8 @@
 const Product = require("../modules/product");
 
+
+//////// add product to the data base ///////////
+
 exports.postAddProduct =  (async(req, res, next) => {
   try {
     const productName = req.body.productName;
@@ -21,3 +24,4 @@ exports.postAddProduct =  (async(req, res, next) => {
     res.send("something went wrong" + err);
   }
 });
+ 
