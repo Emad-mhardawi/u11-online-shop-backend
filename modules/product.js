@@ -8,7 +8,7 @@ const productSchema = new Schema({
         required: true,
     },
 
-    imgeUrl:{
+    imageUrl:{
         type: String,
         required: true,
     },

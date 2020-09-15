@@ -6,13 +6,13 @@ const Product = require("../modules/product");
 exports.postAddProduct =  (async(req, res, next) => {
   try {
     const productName = req.body.productName;
-    const imgeUrl = req.body.imgeUrl;
+    const imageUrl = req.body.imageUrl;
     const description = req.body.description;
     const price = req.body.price;
 
     const newProduct = await new Product({
       productName: productName,
-      imgeUrl: imgeUrl,
+      imageUrl: imageUrl,
       description: description,
       price: price,
     });
@@ -26,6 +26,7 @@ exports.postAddProduct =  (async(req, res, next) => {
 });
  
 
+//////// delete product from the data base ///////////
 
 exports.postDeleteProduct = async(req, res, next)=>{
     try{
@@ -37,4 +38,30 @@ exports.postDeleteProduct = async(req, res, next)=>{
         throw err,
         res.json('something went wrong can not delete product');
     }
-} 
+} ;
+
+
+
+
+exports.postEditProduct = async (req, res, next) => {
+  try {
+    const prodId = req.body.productId;
+    const updatedProductName = req.body.productName;
+    const updatedImageUrl = req.body.imageUrl;
+    const updatedDesc = req.body.description;
+    const updatedPrice = req.body.price;
+
+    const productToUpdate = await Product.findById(prodId);
+    productToUpdate.productName = updatedProductName;
+    productToUpdate.imageUrl = updatedImageUrl;
+    productToUpdate.description = updatedDesc;
+     productToUpdate.price = updatedPrice;
+    const updatedProduct = await productToUpdate.save();
+    res.send(updatedProduct);
+  } catch (err) {
+    res.send("cant edit the product");
+  }
+};
+
+
+  
