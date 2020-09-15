@@ -4,12 +4,16 @@ const mongoose = require("mongoose");
 
 require('dotenv').config()
 
+const bodyParser = require('body-parser');
+
 const app = express();
 
-app.use((req, res, next) => {
-  res.send("hello from node ");
-});
- 
+const adminRoutes = require('./routes/adminRoute')
+
+app.use(bodyParser.json())
+
+
+app.use('/admin', adminRoutes);
 
 
 const PORT = process.env.port || 5000;
