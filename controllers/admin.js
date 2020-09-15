@@ -25,3 +25,16 @@ exports.postAddProduct =  (async(req, res, next) => {
   }
 });
  
+
+
+exports.postDeleteProduct = async(req, res, next)=>{
+    try{
+        const prodId = req.body.productId;
+        const removedProduct = await Product.findByIdAndRemove(prodId);
+        res.send(removedProduct.productName + " successfuly removed");
+
+    }catch(err){
+        throw err,
+        res.json('something went wrong can not delete product');
+    }
+} 
