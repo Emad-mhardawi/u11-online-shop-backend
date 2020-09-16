@@ -1,5 +1,7 @@
 const User = require('../modules/user');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+const { use } = require('../routes/authRoute');
 
 exports.postSignup = async (req, res) => {
   try {
@@ -67,7 +69,17 @@ exports.postLogin =  async(req, res)=>{
         }
 
         if(passwordIsMatch){
-            res.send('you loged in')
+            // the password is match so I will create a JSON WEB TOKEN 
+            // to authenticat the user in the front end 
+            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET); 
+            res.json({
+                token:token,
+                user: {
+                    id: user.id,
+                    displayName: user.displayName,
+                    email: user.email
+                }
+            })
         }
 
     }catch(err){
