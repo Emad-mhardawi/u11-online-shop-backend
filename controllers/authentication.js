@@ -69,9 +69,9 @@ exports.postLogin =  async(req, res)=>{
         }
 
         if(passwordIsMatch){
-            // the password is match so I will create a JSON WEB TOKEN 
+            //  // if user is found and password is right create a json web token 
             // to authenticat the user in the front end 
-            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET); 
+            const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'}); 
             res.json({
                 token:token,
                 user: {
