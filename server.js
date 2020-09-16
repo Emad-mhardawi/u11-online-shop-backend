@@ -8,12 +8,14 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const adminRoutes = require('./routes/adminRoute')
+const adminRoutes = require('./routes/adminRoute');
+const authRoutes = require('./routes/authRoute');
 
 app.use(bodyParser.json())
 
 
 app.use('/admin', adminRoutes);
+app.use(authRoutes);
 
 
 const PORT = process.env.port || 5000;
